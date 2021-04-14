@@ -7,6 +7,8 @@ using UnityEngine;
     public float speed;
     public bool vertical;
     public float changeTime = 3.0f;
+    // Animator
+    Animator animator;
 
     Rigidbody2D rigidbody2D;
     float timer;
@@ -17,6 +19,8 @@ using UnityEngine;
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         timer = changeTime;
+        // Declaration d'un animator
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -36,11 +40,15 @@ using UnityEngine;
         
         if (vertical)
         {
-            position.y = position.y + Time.deltaTime * speed * direction;;
+            position.y = position.y + Time.deltaTime * speed * direction;
+            animator.SetFloat("Move X", 0);
+            animator.SetFloat("Move Y", direction);
         }
         else
         {
-            position.x = position.x + Time.deltaTime * speed * direction;;
+            position.x = position.x + Time.deltaTime * speed * direction;
+            animator.SetFloat("Move X", direction);
+            animator.SetFloat("Move Y", 0);
         }
         
         rigidbody2D.MovePosition(position);
